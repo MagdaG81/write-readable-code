@@ -6,21 +6,27 @@
 <title>Write Readable Code: All in One View</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="../assets/themetoggle.js"></script><link rel="stylesheet" type="text/css" href="../assets/styles.css">
-<script src="../assets/scripts.js" type="text/javascript"></script><!-- mathjax --><script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      config: ["MMLorHTML.js"],
-      jax: ["input/TeX","input/MathML","output/HTML-CSS","output/NativeMML", "output/PreviewHTML"],
-      extensions: ["tex2jax.js","mml2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
-      TeX: {
-        extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
-      },
-      tex2jax: {
-        inlineMath: [['\\(', '\\)']],
-        displayMath: [ ['$$','$$'], ['\\[', '\\]'] ],
-        processEscapes: true
-      }
-    });
-    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><!-- Responsive Favicon for The Carpentries --><link rel="apple-touch-icon" sizes="180x180" href="../favicons/incubator/apple-touch-icon.png">
+<script src="../assets/scripts.js" type="text/javascript"></script><!-- mathjax --><!-- NOTE: https://docs.mathjax.org/en/latest/output/mathml.html#mathml-support --><!-- Changes from V2 to V4: https://mathjax.github.io/MathJax-demos-web/convert-configuration/convert-configuration.html
+        Jax output/NativeMML is not yet implemented
+        Jax output/PreviewHTML is not yet implemented
+        Extension fast-preview is not yet implemented (but may be in a future release)
+    --><script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['\\(', '\\)']],
+            displayMath: [ ['$$','$$'], ['\\[', '\\]'] ],
+            processEscapes: true,
+            packages: ['base', 'ams', 'noerrors', 'noundefined']
+        },
+        options: {
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+        },
+        loader: {
+            load: ['a11y/assistive-mml', '[tex]/noerrors']
+        }
+    };
+    </script><script defer src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script><!-- Responsive Favicon for The Carpentries --><link rel="apple-touch-icon" sizes="180x180" href="../favicons/incubator/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicons/incubator/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="../favicons/incubator/favicon-16x16.png">
 <link rel="manifest" href="../favicons/incubator/site.webmanifest">
@@ -47,8 +53,8 @@
       </div>
     </div>
     <div class="selector-container">
-      <div id="theme-selector">
-        <li class="nav-item dropdown" id="theme-button-list">
+      <menu class="theme-selector" id="theme-selector-menu">
+<li class="nav-item dropdown theme-button-list" id="theme-button-list-menu">
           <button class="btn btn-link nav-link px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (auto)">
             <svg class="bi my-1 theme-icon-active"><use href="#circle-half"></use></svg><i data-feather="chevron-down"></i>
           </button>
@@ -73,10 +79,8 @@
             </li>
           </ul>
 </li>
-      </div>
-
-
-      <div class="dropdown" id="instructor-dropdown">
+    </menu>
+<div class="dropdown" id="instructor-dropdown">
         <button class="btn btn-secondary dropdown-toggle bordered-button" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-expanded="false">
           <i aria-hidden="true" class="icon" data-feather="eye"></i> Instructor View <i data-feather="chevron-down"></i>
         </button>
@@ -142,29 +146,18 @@
     <a id="search-button" class="btn btn-primary" href="../instructor/aio.html" role="button" aria-label="Search the All In One page">Search the All In One page</a>
   </div>
 <!--/div.container-fluid -->
-</nav><div class="col-md-12 mobile-title">
-  Write Readable Code
-</div>
-
-<aside class="col-md-12 lesson-progress"><div style="width: %" class="percentage">
-    %
-  </div>
-  <div class="progress incubator">
-    <div class="progress-bar incubator" role="progressbar" style="width: %" aria-valuenow="" aria-label="Lesson Progress" aria-valuemin="0" aria-valuemax="100">
-    </div>
-  </div>
-</aside><div class="container">
+</nav><div class="container">
       <div class="row">
         <!-- START: inst/pkgdown/templates/navbar.html -->
 <div id="sidebar-col" class="col-lg-4">
   <div id="sidebar" class="sidebar">
-      <nav aria-labelledby="flush-headingEleven"><button role="button" aria-label="close menu" alt="close menu" aria-expanded="true" aria-controls="sidebar" class="collapse-toggle" data-collapse="Collapse " data-episodes="Episodes ">
+      <nav aria-labelledby="flush-collapse-chapters-toggle"><button role="button" aria-label="Collapse" alt="Collapse" aria-expanded="true" aria-controls="sidebar" class="collapse-toggle" data-collapse="Collapse " data-episodes="Episodes ">
           <i class="search-icon" data-feather="x" role="img"></i>
         </button>
         <div class="sidebar-inner">
           <div class="row mobile-row" id="theme-row-mobile">
-            <div class="col" id="theme-selector">
-              <li class="nav-item dropdown" id="theme-button-list">
+            <menu class="col theme-selector" id="theme-selector-sidebar">
+<li class="nav-item dropdown theme-button-list" id="theme-button-list-sidebar">
                 <button class="btn btn-link nav-link px-0 px-lg-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button" aria-expanded="false" data-bs-toggle="dropdown" data-bs-display="static" aria-label="Toggle theme (auto)">
                   <svg class="bi my-1 theme-icon-active"><use href="#circle-half"></use></svg><span class="d-lg-none ms-1" id="bd-theme-text">Toggle Theme</span>
                 </button>
@@ -189,19 +182,19 @@
                   </li>
                 </ul>
 </li>
-            </div>
-          </div>
+            </menu>
+</div>
           <div class="row mobile-row">
             <div class="col">
               <div class="sidenav-view-selector">
-                <div class="accordion accordion-flush" id="accordionFlush9">
+                <div class="accordion accordion-flush" id="accordion-instructor-toggle">
                   <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-headingNine">
-                      <button class="accordion-button collapsed" id="instructor" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseNine" aria-expanded="false" aria-controls="flush-collapseNine">
+                    <h2 class="accordion-header" id="flush-heading-instructor-toggle">
+                      <button class="accordion-button collapsed" id="instructor" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-instructor-toggle" aria-expanded="false" aria-controls="flush-collapse-instructor-toggle">
                         <i id="eye" aria-hidden="true" class="icon" data-feather="eye"></i> Instructor View
                       </button>
                     </h2>
-                    <div id="flush-collapseNine" class="accordion-collapse collapse" aria-labelledby="flush-headingNine" data-bs-parent="#accordionFlush2">
+                    <div id="flush-collapse-instructor-toggle" class="accordion-collapse collapse" data-bs-parent="#accordion-instructor-toggle">
                       <div class="accordion-body">
                         <a href="../aio.html">Learner View</a>
                       </div>
@@ -219,15 +212,15 @@
 </div>
 <!--/div.mobile-row -->
 
-          <div class="accordion accordion-flush" id="accordionFlush11">
+          <div class="accordion accordion-flush" id="accordion-chapters-toggle">
             <div class="accordion-item">
 
-              <button id="chapters" class="accordion-button show" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseEleven" aria-expanded="false" aria-controls="flush-collapseEleven">
-                <h2 class="accordion-header chapters" id="flush-headingEleven">
+              <button id="chapters" class="accordion-button show" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-chapters-toggle" aria-expanded="false" aria-controls="flush-collapse-chapters-toggle">
+                <h2 class="accordion-header chapters" id="flush-heading-chapters-toggle">
                   EPISODES
                 </h2>
               </button>
-              <div id="flush-collapseEleven" class="accordion-collapse show collapse" aria-labelledby="flush-headingEleven" data-bs-parent="#accordionFlush11">
+              <div id="flush-collapse-chapters-toggle" class="accordion-collapse show collapse" data-bs-parent="#accordion-chapters-toggle">
 
                 <div class="accordion-body">
                   <div class="accordion accordion-flush" id="accordionFlush1">
@@ -295,14 +288,14 @@
             </div>
 
             <hr class="half-width">
-<div class="accordion accordion-flush lesson-resources" id="accordionFlush12">
+<div class="accordion accordion-flush lesson-resources" id="accordion-resources-toggle">
               <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingTwelve">
-                  <button class="accordion-button collapsed" id="lesson-resources" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwelve" aria-expanded="false" aria-controls="flush-collapseTwelve">
+                <h2 class="accordion-header" id="flush-heading-resources-toggle">
+                  <button class="accordion-button collapsed" id="lesson-resources" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-resources-toggle" aria-expanded="false" aria-controls="flush-collapse-resources-toggle">
                     RESOURCES
                   </button>
                 </h2>
-                <div id="flush-collapseTwelve" class="accordion-collapse collapse" aria-labelledby="flush-headingTwelve" data-bs-parent="#accordionFlush12">
+                <div id="flush-collapse-resources-toggle" class="accordion-collapse collapse" data-bs-parent="#accordion-resources-toggle">
                   <div class="accordion-body">
                     <ul>
 <li>
@@ -343,11 +336,11 @@
         <!-- START: inst/pkgdown/templates/content-extra.html -->
   <div class="col-xl-8 col-lg-12 primary-content">
     <main id="main-content" class="main-content"><div class="container lesson-content">
-        
+        <h1>All in One View</h1>
         
 <section id="aio-Episode1"><p>Content from <a href="Episode1.html">Write Readable Code</a></p>
 <hr>
-<p>Last updated on 2026-04-14 |
+<p>Last updated on 2026-04-21 |
 
         <a href="https://github.com/carpentries-incubator/write-readable-code/edit/main/episodes/Episode1.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 17 minutes</p>
@@ -423,8 +416,8 @@ necessary):</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>t <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">4</span><span class="op">*</span>np.pi, <span class="dv">1000</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>f(t)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>t <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">4</span><span class="op">*</span>np.pi, <span class="dv">1000</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a>f(t)</span></code></pre>
 </div>
 <p><strong>Suggestion</strong>: Take note of the main points you might
 need for the following discussions.</p>
@@ -446,15 +439,15 @@ function is intended to do?</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="kw">def</span> f(t):</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  r <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="bu">len</span>(t))</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  x <span class="op">=</span> r <span class="op">*</span> np.cos(t)</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  y <span class="op">=</span> r <span class="op">*</span> np.sin(t)</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  plt.plot(x,y)</span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  plt.show()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1" aria-label="code-block-2-4"></a><span class="kw">def</span> f(t):</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1" aria-label="code-block-2-5"></a>  r <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="bu">len</span>(t))</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1" aria-label="code-block-2-6"></a>  x <span class="op">=</span> r <span class="op">*</span> np.cos(t)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1" aria-label="code-block-2-7"></a>  y <span class="op">=</span> r <span class="op">*</span> np.sin(t)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1" aria-label="code-block-2-8"></a>  plt.plot(x,y)</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1" aria-label="code-block-2-9"></a>  plt.show()</span></code></pre>
 </div>
 </div>
 </div>
@@ -495,15 +488,15 @@ following code?</h3>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="kw">def</span> f(t):</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  r <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="bu">len</span>(t))</span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  x <span class="op">=</span> r <span class="op">*</span> np.cos(t)</span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  y <span class="op">=</span> r <span class="op">*</span> np.sin(t)</span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  plt.plot(x,y)</span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  plt.show()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a><span class="kw">def</span> f(t):</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a>  r <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="bu">len</span>(t))</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1" aria-label="code-block-3-6"></a>  x <span class="op">=</span> r <span class="op">*</span> np.cos(t)</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1" aria-label="code-block-3-7"></a>  y <span class="op">=</span> r <span class="op">*</span> np.sin(t)</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1" aria-label="code-block-3-8"></a>  plt.plot(x,y)</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1" aria-label="code-block-3-9"></a>  plt.show()</span></code></pre>
 </div>
 </div>
 </div>
@@ -522,18 +515,18 @@ just to focus on the names and add some comments.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co">#Plot a spiral in polar coordianate</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co">#for a given list of theta values</span></span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="kw">def</span> plot_spiral(theta):</span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="co"># Creates an array of evenly spaced radius values from 0 to 1. </span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="co"># The final array has the same number of element than theta</span></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  radius <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="bu">len</span>(theta)) </span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  <span class="co"># Converts polar coordinates to Cartesian</span></span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  x_coordinate <span class="op">=</span> radius <span class="op">*</span> np.cos(theta)</span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>  y_coordinate <span class="op">=</span> radius <span class="op">*</span> np.sin(theta)</span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>  plt.plot(x_coordinate,y_coordinate)</span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>  plt.show()</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="co">#Plot a spiral in polar coordianate</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a><span class="co">#for a given list of theta values</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a><span class="kw">def</span> plot_spiral(theta):</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a>  <span class="co"># Creates an array of evenly spaced radius values from 0 to 1. </span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a>  <span class="co"># The final array has the same number of element than theta</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1" aria-label="code-block-4-7"></a>  radius <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="bu">len</span>(theta)) </span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1" aria-label="code-block-4-8"></a>  <span class="co"># Converts polar coordinates to Cartesian</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1" aria-label="code-block-4-9"></a>  x_coordinate <span class="op">=</span> radius <span class="op">*</span> np.cos(theta)</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1" aria-label="code-block-4-10"></a>  y_coordinate <span class="op">=</span> radius <span class="op">*</span> np.sin(theta)</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1" aria-label="code-block-4-11"></a>  plt.plot(x_coordinate,y_coordinate)</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1" aria-label="code-block-4-12"></a>  plt.show()</span></code></pre>
 </div>
 <p>The point is to show that simple modification can improve code
 readability.</p>
@@ -541,30 +534,30 @@ readability.</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co"># Calculate polar coordinate for an array of angles.</span></span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="kw">def</span> calculate_polarcoordinate(theta): <span class="co">#Meaningful names: changed names of the function and input argument</span></span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a></span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="co"># Creates an array of evenly spaced radius values from 0 to 1. </span></span>
-<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>  <span class="co"># The final array has the same number of element than theta</span></span>
-<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>  radius <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="bu">len</span>(theta))</span>
-<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>  <span class="co"># Converts polar coordinates to Cartesian</span></span>
-<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>  x_coordinate <span class="op">=</span> radius <span class="op">*</span> np.cos(theta)</span>
-<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>  y_coordinate <span class="op">=</span> radius <span class="op">*</span> np.sin(theta)</span>
-<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>  </span>
-<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>  <span class="cf">return</span> x_coordinate, y_coordinate <span class="co">#Better output handling</span></span>
-<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a></span>
-<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#plot a spiral in polar coordinate</span></span>
-<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="kw">def</span> visualise_spiral_polar_coordinates(x_coordinate,y_coordinate): <span class="co">#split data and visualisation</span></span>
-<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a></span>
-<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>  plt.plot(x_coordinate, y_coordinate)</span>
-<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>  plt.xlabel(<span class="st">'x'</span>)</span>
-<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a>  plt.ylabel(<span class="st">'y'</span>)</span>
-<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>  plt.title(<span class="st">'Spiral in Polar Coordinates'</span>)</span>
-<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a>  plt.show() </span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1" aria-label="code-block-5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1" aria-label="code-block-5-4"></a><span class="co"># Calculate polar coordinate for an array of angles.</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1" aria-label="code-block-5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1" aria-label="code-block-5-6"></a><span class="kw">def</span> calculate_polarcoordinate(theta): <span class="co">#Meaningful names: changed names of the function and input argument</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1" aria-label="code-block-5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1" aria-label="code-block-5-8"></a>  <span class="co"># Creates an array of evenly spaced radius values from 0 to 1. </span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1" aria-label="code-block-5-9"></a>  <span class="co"># The final array has the same number of element than theta</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1" aria-label="code-block-5-10"></a>  radius <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="bu">len</span>(theta))</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1" aria-label="code-block-5-11"></a>  <span class="co"># Converts polar coordinates to Cartesian</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1" aria-label="code-block-5-12"></a>  x_coordinate <span class="op">=</span> radius <span class="op">*</span> np.cos(theta)</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1" aria-label="code-block-5-13"></a>  y_coordinate <span class="op">=</span> radius <span class="op">*</span> np.sin(theta)</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1" aria-label="code-block-5-14"></a>  </span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1" aria-label="code-block-5-15"></a>  <span class="cf">return</span> x_coordinate, y_coordinate <span class="co">#Better output handling</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1" aria-label="code-block-5-16"></a></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1" aria-label="code-block-5-17"></a><span class="co">#plot a spiral in polar coordinate</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1" aria-label="code-block-5-18"></a><span class="kw">def</span> visualise_spiral_polar_coordinates(x_coordinate,y_coordinate): <span class="co">#split data and visualisation</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1" aria-label="code-block-5-19"></a></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1" aria-label="code-block-5-20"></a>  plt.plot(x_coordinate, y_coordinate)</span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1" aria-label="code-block-5-21"></a>  plt.xlabel(<span class="st">'x'</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1" aria-label="code-block-5-22"></a>  plt.ylabel(<span class="st">'y'</span>)</span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1" aria-label="code-block-5-23"></a>  plt.title(<span class="st">'Spiral in Polar Coordinates'</span>)</span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1" aria-label="code-block-5-24"></a>  plt.show() </span></code></pre>
 </div>
 <p><strong>Focus on the change</strong>:</p>
 <ul>
@@ -646,32 +639,32 @@ regression.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co"># Dataset 1</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>X <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>y <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> X <span class="op">+</span> <span class="dv">1</span> <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="bu">len</span>(X))</span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co"># Calculate coefficients using np.linalg</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>A <span class="op">=</span> np.vstack([X, np.ones(<span class="bu">len</span>(X))]).T</span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>coefficients <span class="op">=</span> np.linalg.lstsq(A, y, rcond<span class="op">=</span><span class="va">None</span>)[<span class="dv">0</span>]</span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>m, b <span class="op">=</span> coefficients</span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a></span>
-<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co"># Dataset 2 </span></span>
-<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>X1 <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
-<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>y1 <span class="op">=</span> <span class="fl">1.5</span> <span class="op">*</span> X1 <span class="op">+</span> <span class="fl">0.5</span> <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="bu">len</span>(X))</span>
-<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a></span>
-<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a>A1 <span class="op">=</span> np.vstack([X1, np.ones(<span class="bu">len</span>(X1))]).T</span>
-<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a>coefficients1 <span class="op">=</span> np.linalg.lstsq(A1, y1, rcond<span class="op">=</span><span class="va">None</span>)[<span class="dv">0</span>]</span>
-<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a>m1, b1 <span class="op">=</span> coefficients1</span>
-<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a></span>
-<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a></span>
-<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="co"># Verify all calculations give same result</span></span>
-<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Case 1: Slope: = "</span>,<span class="bu">round</span>(m,<span class="dv">4</span>),<span class="st">"intercept ="</span>,<span class="bu">round</span>(b,<span class="dv">4</span>))</span>
-<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Case 2: Slope: = "</span>,<span class="bu">round</span>(m1,<span class="dv">4</span>),<span class="st">"intercept ="</span>,<span class="bu">round</span>(b1,<span class="dv">4</span>))</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1" aria-label="code-block-6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1" aria-label="code-block-6-5"></a><span class="co"># Dataset 1</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1" aria-label="code-block-6-6"></a>X <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1" aria-label="code-block-6-7"></a>y <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> X <span class="op">+</span> <span class="dv">1</span> <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="bu">len</span>(X))</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1" aria-label="code-block-6-8"></a></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1" aria-label="code-block-6-9"></a><span class="co"># Calculate coefficients using np.linalg</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1" aria-label="code-block-6-10"></a>A <span class="op">=</span> np.vstack([X, np.ones(<span class="bu">len</span>(X))]).T</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1" aria-label="code-block-6-11"></a>coefficients <span class="op">=</span> np.linalg.lstsq(A, y, rcond<span class="op">=</span><span class="va">None</span>)[<span class="dv">0</span>]</span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1" aria-label="code-block-6-12"></a>m, b <span class="op">=</span> coefficients</span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1" aria-label="code-block-6-13"></a></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1" aria-label="code-block-6-14"></a></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1" aria-label="code-block-6-15"></a><span class="co"># Dataset 2 </span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1" aria-label="code-block-6-16"></a>X1 <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1" aria-label="code-block-6-17"></a>y1 <span class="op">=</span> <span class="fl">1.5</span> <span class="op">*</span> X1 <span class="op">+</span> <span class="fl">0.5</span> <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="bu">len</span>(X))</span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1" aria-label="code-block-6-18"></a></span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1" aria-label="code-block-6-19"></a>A1 <span class="op">=</span> np.vstack([X1, np.ones(<span class="bu">len</span>(X1))]).T</span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1" aria-label="code-block-6-20"></a>coefficients1 <span class="op">=</span> np.linalg.lstsq(A1, y1, rcond<span class="op">=</span><span class="va">None</span>)[<span class="dv">0</span>]</span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1" aria-label="code-block-6-21"></a>m1, b1 <span class="op">=</span> coefficients1</span>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1" aria-label="code-block-6-22"></a></span>
+<span id="cb6-23"><a href="#cb6-23" tabindex="-1" aria-label="code-block-6-23"></a></span>
+<span id="cb6-24"><a href="#cb6-24" tabindex="-1" aria-label="code-block-6-24"></a><span class="co"># Verify all calculations give same result</span></span>
+<span id="cb6-25"><a href="#cb6-25" tabindex="-1" aria-label="code-block-6-25"></a><span class="bu">print</span>(<span class="st">"Case 1: Slope: = "</span>,<span class="bu">round</span>(m,<span class="dv">4</span>),<span class="st">"intercept ="</span>,<span class="bu">round</span>(b,<span class="dv">4</span>))</span>
+<span id="cb6-26"><a href="#cb6-26" tabindex="-1" aria-label="code-block-6-26"></a><span class="bu">print</span>(<span class="st">"Case 2: Slope: = "</span>,<span class="bu">round</span>(m1,<span class="dv">4</span>),<span class="st">"intercept ="</span>,<span class="bu">round</span>(b1,<span class="dv">4</span>))</span></code></pre>
 </div>
 <p>The code works as expected and appears straightforward but violates
 both principles. Let us see why.</p>
@@ -695,32 +688,32 @@ violations is presented.</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co"># Generate Y data using linear equation y=mx+b with Gaussian noise </span></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="kw">def</span> generate_data(x_values, slope, intercept):</span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>    </span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>    y_values <span class="op">=</span> slope <span class="op">*</span> x_values <span class="op">+</span> intercept <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="bu">len</span>(x_values)) </span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>    <span class="cf">return</span> y_values</span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co"># Get linear regression coefficient</span></span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="kw">def</span> fit_linear_regression(x_values, y_values):</span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>    A <span class="op">=</span> np.vstack([X, np.ones(<span class="bu">len</span>(x_values))]).T</span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a>    coefficients <span class="op">=</span> np.linalg.lstsq(A, y_values, rcond<span class="op">=</span><span class="va">None</span>)[<span class="dv">0</span>] </span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>    <span class="cf">return</span> </span>
-<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>    </span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co"># Usage</span></span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>base_X <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
-<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>case1_y <span class="op">=</span> generate_data(base_X, <span class="fl">2.0</span>, <span class="fl">1.0</span>)</span>
-<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a>case2_y <span class="op">=</span> generate_data(base_X, <span class="fl">1.5</span>, <span class="fl">0.5</span>)</span>
-<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a></span>
-<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a>m, b <span class="op">=</span> fit_linear_regression(base_X, case1_y)</span>
-<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a>verify_coefficients(m, b)</span>
-<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a></span>
-<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a>m1, b1 <span class="op">=</span> fit_linear_regression(base_X, case2_y)</span>
-<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a>verify_coefficients(m1, b1)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1" aria-label="code-block-7-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1" aria-label="code-block-7-4"></a></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1" aria-label="code-block-7-5"></a><span class="co"># Generate Y data using linear equation y=mx+b with Gaussian noise </span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1" aria-label="code-block-7-6"></a><span class="kw">def</span> generate_data(x_values, slope, intercept):</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1" aria-label="code-block-7-7"></a>    </span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1" aria-label="code-block-7-8"></a>    y_values <span class="op">=</span> slope <span class="op">*</span> x_values <span class="op">+</span> intercept <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="bu">len</span>(x_values)) </span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1" aria-label="code-block-7-9"></a>    <span class="cf">return</span> y_values</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1" aria-label="code-block-7-10"></a></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1" aria-label="code-block-7-11"></a><span class="co"># Get linear regression coefficient</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1" aria-label="code-block-7-12"></a><span class="kw">def</span> fit_linear_regression(x_values, y_values):</span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1" aria-label="code-block-7-13"></a>    A <span class="op">=</span> np.vstack([X, np.ones(<span class="bu">len</span>(x_values))]).T</span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1" aria-label="code-block-7-14"></a>    coefficients <span class="op">=</span> np.linalg.lstsq(A, y_values, rcond<span class="op">=</span><span class="va">None</span>)[<span class="dv">0</span>] </span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1" aria-label="code-block-7-15"></a>    <span class="cf">return</span> </span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1" aria-label="code-block-7-16"></a>    </span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1" aria-label="code-block-7-17"></a><span class="co"># Usage</span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1" aria-label="code-block-7-18"></a>base_X <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1" aria-label="code-block-7-19"></a>case1_y <span class="op">=</span> generate_data(base_X, <span class="fl">2.0</span>, <span class="fl">1.0</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1" aria-label="code-block-7-20"></a>case2_y <span class="op">=</span> generate_data(base_X, <span class="fl">1.5</span>, <span class="fl">0.5</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1" aria-label="code-block-7-21"></a></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1" aria-label="code-block-7-22"></a>m, b <span class="op">=</span> fit_linear_regression(base_X, case1_y)</span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1" aria-label="code-block-7-23"></a>verify_coefficients(m, b)</span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1" aria-label="code-block-7-24"></a></span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1" aria-label="code-block-7-25"></a>m1, b1 <span class="op">=</span> fit_linear_regression(base_X, case2_y)</span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1" aria-label="code-block-7-26"></a>verify_coefficients(m1, b1)</span></code></pre>
 </div>
 <p>This new version uses a single data generation function for both
 cases and a single linear regression function that can be applied to
@@ -778,7 +771,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-Episode2"><p>Content from <a href="Episode2.html">Write Elegant Code</a></p>
 <hr>
-<p>Last updated on 2026-04-14 |
+<p>Last updated on 2026-04-21 |
 
         <a href="https://github.com/carpentries-incubator/write-readable-code/edit/main/episodes/Episode2.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 10 minutes</p>
@@ -842,9 +835,9 @@ and why it exists.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">100</span> </span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>c <span class="op">=</span> a<span class="op">/</span>b</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a>a <span class="op">=</span> <span class="dv">100</span> </span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a>b <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a>c <span class="op">=</span> a<span class="op">/</span>b</span></code></pre>
 </div>
 <p>Without context, you can only understand that <code>c</code> is the
 ratio between the other variables (<code>a</code> and <code>b</code>).
@@ -855,18 +848,18 @@ example</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">100</span> <span class="co">#distance in km</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">2</span> <span class="co">#time in hour</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>c <span class="op">=</span> a<span class="op">/</span>b <span class="co">#velocity in km/hour</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>a <span class="op">=</span> <span class="dv">100</span> <span class="co">#distance in km</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a>b <span class="op">=</span> <span class="dv">2</span> <span class="co">#time in hour</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a>c <span class="op">=</span> a<span class="op">/</span>b <span class="co">#velocity in km/hour</span></span></code></pre>
 </div>
 <p>On the other hand, by simply changing the names of the variables, you
 achieve the same goal without adding unnecessary comments.</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>distance <span class="op">=</span> <span class="dv">100</span>  <span class="co"># in km</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>time <span class="op">=</span> <span class="dv">2</span> <span class="co"># in hour</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>velocity <span class="op">=</span> distance<span class="op">/</span>time <span class="co"># in km/hour</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a>distance <span class="op">=</span> <span class="dv">100</span>  <span class="co"># in km</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a>time <span class="op">=</span> <span class="dv">2</span> <span class="co"># in hour</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a>velocity <span class="op">=</span> distance<span class="op">/</span>time <span class="co"># in km/hour</span></span></code></pre>
 </div>
 <p>In the code above, comments are used only to provide extra
 information that cannot be inferred by the code alone.</p>
@@ -917,7 +910,7 @@ creating ambiguity in the code.</p>
 <button class="accordion-button instructor-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInstructor1" aria-expanded="false" aria-controls="collapseInstructor1">
   <h3 class="accordion-header" id="headingInstructor1">  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="edit-2"></i></div> Instructor Note </h3>
 </button>
-<div id="collapseInstructor1" class="accordion-collapse collapse" data-bs-parent="#accordionInstructor1" aria-labelledby="headingInstructor1">
+<div id="collapseInstructor1" class="accordion-collapse collapse" aria-labelledby="headingInstructor1" data-bs-parent="#accordionInstructor1">
 <div class="accordion-body">
 <p>The variable defines a relative velocity; the <code>rlt</code> stands
 for <code>relative</code>. Try to spell the <code>v_lrt</code> aloud to
@@ -939,7 +932,7 @@ velocity, what does <code>rlt</code> mean?</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>v_rlt <span class="op">=</span> <span class="dv">100</span> <span class="co"># km/h</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a>v_rlt <span class="op">=</span> <span class="dv">100</span> <span class="co"># km/h</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1003,14 +996,14 @@ the code? - Are there any magic numbers? What problem could they cause?
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="kw">def</span> calculate_gravitational_force(mass1, mass2, distance):</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  force <span class="op">=</span> (<span class="fl">6.67430e-11</span> <span class="op">*</span> mass1 <span class="op">*</span> mass2) <span class="op">/</span> (distance <span class="op">**</span> <span class="dv">2</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="cf">return</span> force</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="kw">def</span> calculate_gravitational_potential_energy(mass1, mass2, distance):</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>  potential_energy <span class="op">=</span> (<span class="fl">6.67430e-11</span> <span class="op">*</span> mass1 <span class="op">*</span> mass2) <span class="op">/</span> distance</span>
-<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="cf">return</span> potential_energy</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a><span class="kw">def</span> calculate_gravitational_force(mass1, mass2, distance):</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1" aria-label="code-block-5-3"></a>  force <span class="op">=</span> (<span class="fl">6.67430e-11</span> <span class="op">*</span> mass1 <span class="op">*</span> mass2) <span class="op">/</span> (distance <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1" aria-label="code-block-5-4"></a>  <span class="cf">return</span> force</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1" aria-label="code-block-5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1" aria-label="code-block-5-6"></a><span class="kw">def</span> calculate_gravitational_potential_energy(mass1, mass2, distance):</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1" aria-label="code-block-5-7"></a>  potential_energy <span class="op">=</span> (<span class="fl">6.67430e-11</span> <span class="op">*</span> mass1 <span class="op">*</span> mass2) <span class="op">/</span> distance</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1" aria-label="code-block-5-8"></a>  <span class="cf">return</span> potential_energy</span></code></pre>
 </div>
 </div>
 </div>
@@ -1020,7 +1013,7 @@ the code? - Are there any magic numbers? What problem could they cause?
 <button class="accordion-button solution-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSolution1" aria-expanded="false" aria-controls="collapseSolution1">
   <h4 class="accordion-header" id="headingSolution1"> Show me the solution </h4>
 </button>
-<div id="collapseSolution1" class="accordion-collapse collapse" data-bs-parent="#accordionSolution1" aria-labelledby="headingSolution1">
+<div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
 <p>The code uses consistent names for the two functions, which are
 self-explanatory. They have an explicit return statement and robust
@@ -1033,16 +1026,16 @@ different places.</p>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>GRAVITATIONAL_CONSTANT <span class="op">=</span> <span class="fl">6.67430e-11</span> <span class="co"># m^3/kg/s^2</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="kw">def</span> calculate_gravitational_force(mass1, mass2, distance):</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  force <span class="op">=</span> (GRAVITATIONAL_CONSTANT <span class="op">*</span> mass1 <span class="op">*</span> mass2) <span class="op">/</span> (distance <span class="op">**</span> <span class="dv">2</span>)</span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="cf">return</span> force</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="kw">def</span> calculate_gravitational_potential_energy(mass1, mass2, distance):</span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>  potential_energy <span class="op">=</span> (GRAVITATIONAL_CONSTANT <span class="op">*</span> mass1 <span class="op">*</span> mass2) <span class="op">/</span> distance</span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>  <span class="cf">return</span> potential_energy</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a>GRAVITATIONAL_CONSTANT <span class="op">=</span> <span class="fl">6.67430e-11</span> <span class="co"># m^3/kg/s^2</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1" aria-label="code-block-6-4"></a><span class="kw">def</span> calculate_gravitational_force(mass1, mass2, distance):</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1" aria-label="code-block-6-5"></a>  force <span class="op">=</span> (GRAVITATIONAL_CONSTANT <span class="op">*</span> mass1 <span class="op">*</span> mass2) <span class="op">/</span> (distance <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1" aria-label="code-block-6-6"></a>  <span class="cf">return</span> force</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1" aria-label="code-block-6-7"></a></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1" aria-label="code-block-6-8"></a><span class="kw">def</span> calculate_gravitational_potential_energy(mass1, mass2, distance):</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1" aria-label="code-block-6-9"></a>  potential_energy <span class="op">=</span> (GRAVITATIONAL_CONSTANT <span class="op">*</span> mass1 <span class="op">*</span> mass2) <span class="op">/</span> distance</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1" aria-label="code-block-6-10"></a>  <span class="cf">return</span> potential_energy</span></code></pre>
 </div>
 </div>
 </div>
@@ -1084,7 +1077,7 @@ any links that you are not going to use.
  -->
 </section></section><section id="aio-Episode3"><p>Content from <a href="Episode3.html">Write Robust Code</a></p>
 <hr>
-<p>Last updated on 2026-04-14 |
+<p>Last updated on 2026-04-21 |
 
         <a href="https://github.com/carpentries-incubator/write-readable-code/edit/main/episodes/Episode3.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 23 minutes</p>
@@ -1134,12 +1127,12 @@ strong, error-resistant code.</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="kw">def</span> calculate_rectangle_area(width, height):</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  </span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>  area <span class="op">=</span> width <span class="op">*</span> height</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>  </span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="cf">return</span> area</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  </span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="kw">def</span> calculate_rectangle_area(width, height):</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1" aria-label="code-block-1-2"></a>  </span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1" aria-label="code-block-1-3"></a>  area <span class="op">=</span> width <span class="op">*</span> height</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1" aria-label="code-block-1-4"></a>  </span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1" aria-label="code-block-1-5"></a>  <span class="cf">return</span> area</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1" aria-label="code-block-1-6"></a>  </span></code></pre>
 </div>
 <p>At a glance, we can understand the purpose and functionality of this
 code. The function name <code>calculate_rectangle_area</code> is
@@ -1184,20 +1177,20 @@ results.</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Case 1. The code gives the right result</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="op">&gt;&gt;</span><span class="bu">print</span>(<span class="st">"width = 5.2 and height = 4.3 (both numerical):</span><span class="ch">\n</span><span class="st"> area = "</span>,calculate_rectangle_area(<span class="fl">5.2</span>, <span class="fl">4.3</span>))</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>width <span class="op">=</span> <span class="fl">5.2</span> <span class="kw">and</span> height <span class="op">=</span> <span class="fl">4.3</span> (both numerical): </span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>area <span class="op">=</span>  <span class="fl">22.36</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co"># Case 2. The code multiplies the string (height) by 5, meaning that the string is repeated 5 times.</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="bu">print</span>(<span class="st">"width = 5 and height = '4' (both numerical):</span><span class="ch">\n</span><span class="st"> area = "</span>,calculate_rectangle_area(<span class="dv">5</span>, <span class="dv">4</span>))</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>width <span class="op">=</span> <span class="dv">5</span> <span class="kw">and</span> height <span class="op">=</span> <span class="st">'4'</span> (one numerical <span class="kw">and</span> one string)</span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>area <span class="op">=</span>  <span class="dv">44444</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co"># Case 3. The code raises a TypeError</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="bu">print</span>(<span class="st">"width = '5' and height = '4' (one numerical and one string):</span><span class="ch">\n</span><span class="st"> area = "</span>,calculate_rectangle_area(<span class="st">'5'</span>, <span class="st">'4'</span>))</span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>[...]</span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="pp">TypeError</span>: can<span class="st">'t multiply sequence by non-int of type '</span><span class="bu">str</span><span class="st">'</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a><span class="co"># Case 1. The code gives the right result</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1" aria-label="code-block-2-2"></a><span class="op">&gt;&gt;</span><span class="bu">print</span>(<span class="st">"width = 5.2 and height = 4.3 (both numerical):</span><span class="ch">\n</span><span class="st"> area = "</span>,calculate_rectangle_area(<span class="fl">5.2</span>, <span class="fl">4.3</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1" aria-label="code-block-2-3"></a>width <span class="op">=</span> <span class="fl">5.2</span> <span class="kw">and</span> height <span class="op">=</span> <span class="fl">4.3</span> (both numerical): </span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1" aria-label="code-block-2-4"></a>area <span class="op">=</span>  <span class="fl">22.36</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1" aria-label="code-block-2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1" aria-label="code-block-2-6"></a><span class="co"># Case 2. The code multiplies the string (height) by 5, meaning that the string is repeated 5 times.</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1" aria-label="code-block-2-7"></a><span class="op">&gt;&gt;</span> <span class="bu">print</span>(<span class="st">"width = 5 and height = '4' (both numerical):</span><span class="ch">\n</span><span class="st"> area = "</span>,calculate_rectangle_area(<span class="dv">5</span>, <span class="dv">4</span>))</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1" aria-label="code-block-2-8"></a>width <span class="op">=</span> <span class="dv">5</span> <span class="kw">and</span> height <span class="op">=</span> <span class="st">'4'</span> (one numerical <span class="kw">and</span> one string)</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1" aria-label="code-block-2-9"></a>area <span class="op">=</span>  <span class="dv">44444</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1" aria-label="code-block-2-10"></a></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1" aria-label="code-block-2-11"></a><span class="co"># Case 3. The code raises a TypeError</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1" aria-label="code-block-2-12"></a><span class="op">&gt;&gt;</span> <span class="bu">print</span>(<span class="st">"width = '5' and height = '4' (one numerical and one string):</span><span class="ch">\n</span><span class="st"> area = "</span>,calculate_rectangle_area(<span class="st">'5'</span>, <span class="st">'4'</span>))</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1" aria-label="code-block-2-13"></a>[...]</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1" aria-label="code-block-2-14"></a><span class="pp">TypeError</span>: can<span class="st">'t multiply sequence by non-int of type '</span><span class="bu">str</span><span class="st">'</span></span></code></pre>
 </div>
 </div>
 </div>
@@ -1232,19 +1225,19 @@ function above can be:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="kw">def</span> calculate_rectangle_area(width, height):</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="co">""" Calculate the area of a rectangle, knowing its height and width</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">  Args:</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">      width (float): The width of a rectangle</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">      height (float): The height of a rectangle</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">  Returns:</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">      float: area of the rectangle</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">  """</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>  area <span class="op">=</span> width <span class="op">*</span> height</span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>  <span class="cf">return</span> area</span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>  </span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="kw">def</span> calculate_rectangle_area(width, height):</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a>  <span class="co">""" Calculate the area of a rectangle, knowing its height and width</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a><span class="co">  Args:</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a><span class="co">      width (float): The width of a rectangle</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1" aria-label="code-block-3-6"></a><span class="co">      height (float): The height of a rectangle</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1" aria-label="code-block-3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1" aria-label="code-block-3-8"></a><span class="co">  Returns:</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1" aria-label="code-block-3-9"></a><span class="co">      float: area of the rectangle</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1" aria-label="code-block-3-10"></a><span class="co">  """</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1" aria-label="code-block-3-11"></a>  area <span class="op">=</span> width <span class="op">*</span> height</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1" aria-label="code-block-3-12"></a>  <span class="cf">return</span> area</span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1" aria-label="code-block-3-13"></a>  </span></code></pre>
 </div>
 <p>In the docstring, we briefly describe what the function does, the
 arguments and their types, and the type of the returning variables.</p>
@@ -1253,16 +1246,16 @@ to use it.</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="op">&gt;&gt;</span> <span class="bu">help</span>(calculate_rectangle_area)</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>calculate_rectangle_area(width, height)</span>
-<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>    Calculate the area of a rectangle, knowing its height <span class="kw">and</span> width</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>    Args:</span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>        width (<span class="bu">float</span>): The width of a rectangle</span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>        height (<span class="bu">float</span>): The height of a rectangle</span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    Returns:</span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>        <span class="bu">float</span>: area of the rectangle</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="op">&gt;&gt;</span> <span class="bu">help</span>(calculate_rectangle_area)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a>calculate_rectangle_area(width, height)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1" aria-label="code-block-4-3"></a>    Calculate the area of a rectangle, knowing its height <span class="kw">and</span> width</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1" aria-label="code-block-4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1" aria-label="code-block-4-5"></a>    Args:</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1" aria-label="code-block-4-6"></a>        width (<span class="bu">float</span>): The width of a rectangle</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1" aria-label="code-block-4-7"></a>        height (<span class="bu">float</span>): The height of a rectangle</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1" aria-label="code-block-4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1" aria-label="code-block-4-9"></a>    Returns:</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1" aria-label="code-block-4-10"></a>        <span class="bu">float</span>: area of the rectangle</span></code></pre>
 </div>
 </div>
 <div class="section level3">
@@ -1291,30 +1284,30 @@ syntax is</p>
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="cf">assert</span> Condition, <span class="st">'Error message'</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a><span class="cf">assert</span> Condition, <span class="st">'Error message'</span></span></code></pre>
 </div>
 <div class="codewrapper sourceCode" id="cb6">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a></span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="op">&gt;</span> x <span class="op">=</span> <span class="op">-</span><span class="dv">1</span> </span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="op">&gt;</span> <span class="cf">assert</span> x<span class="op">&gt;</span><span class="dv">0</span>, <span class="st">'x must be greater than 0'</span> <span class="co">#check if the condition x&gt;0 is true</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="op">----&gt;</span> <span class="dv">1</span><span class="er">assert</span> x<span class="op">&gt;</span><span class="dv">0</span>, <span class="st">'x must be greater than 0'</span> </span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="pp">AssertionError</span>: x must be greater than <span class="dv">0</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" tabindex="-1" aria-label="code-block-6-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1" aria-label="code-block-6-2"></a><span class="op">&gt;</span> x <span class="op">=</span> <span class="op">-</span><span class="dv">1</span> </span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1" aria-label="code-block-6-3"></a><span class="op">&gt;</span> <span class="cf">assert</span> x<span class="op">&gt;</span><span class="dv">0</span>, <span class="st">'x must be greater than 0'</span> <span class="co">#check if the condition x&gt;0 is true</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1" aria-label="code-block-6-4"></a><span class="op">----&gt;</span> <span class="dv">1</span><span class="er">assert</span> x<span class="op">&gt;</span><span class="dv">0</span>, <span class="st">'x must be greater than 0'</span> </span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1" aria-label="code-block-6-5"></a></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1" aria-label="code-block-6-6"></a><span class="pp">AssertionError</span>: x must be greater than <span class="dv">0</span></span></code></pre>
 </div>
 <p>Assertions can check multiple statements using the <code>and</code>
 and <code>or</code> operator</p>
 <div class="codewrapper sourceCode" id="cb7">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="op">&gt;</span> x <span class="op">=</span> <span class="dv">3</span> </span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="op">&gt;</span> <span class="cf">assert</span> x<span class="op">&gt;</span><span class="dv">0</span> <span class="kw">and</span> x<span class="op">&lt;</span><span class="dv">2</span> , <span class="st">'x must be between 0 and 2'</span> </span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="op">----&gt;</span> <span class="dv">1</span><span class="er">assert</span> x<span class="op">&gt;</span><span class="dv">0</span> <span class="kw">and</span> x<span class="op">&lt;</span><span class="dv">2</span>, <span class="st">'x must be between 0 and 2'</span></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="pp">AssertionError</span>: <span class="pp">AssertionError</span>: x must be between <span class="dv">0</span> <span class="kw">and</span> <span class="dv">2</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" tabindex="-1" aria-label="code-block-7-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1" aria-label="code-block-7-2"></a><span class="op">&gt;</span> x <span class="op">=</span> <span class="dv">3</span> </span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1" aria-label="code-block-7-3"></a><span class="op">&gt;</span> <span class="cf">assert</span> x<span class="op">&gt;</span><span class="dv">0</span> <span class="kw">and</span> x<span class="op">&lt;</span><span class="dv">2</span> , <span class="st">'x must be between 0 and 2'</span> </span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1" aria-label="code-block-7-4"></a><span class="op">----&gt;</span> <span class="dv">1</span><span class="er">assert</span> x<span class="op">&gt;</span><span class="dv">0</span> <span class="kw">and</span> x<span class="op">&lt;</span><span class="dv">2</span>, <span class="st">'x must be between 0 and 2'</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1" aria-label="code-block-7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1" aria-label="code-block-7-6"></a><span class="pp">AssertionError</span>: <span class="pp">AssertionError</span>: x must be between <span class="dv">0</span> <span class="kw">and</span> <span class="dv">2</span></span></code></pre>
 </div>
 <p>Functions that return a boolean output (True or False) can also be
 used. For example, a useful Python function that checks a variable type
@@ -1324,9 +1317,9 @@ otherwise. For example:</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="op">&gt;</span> x <span class="op">=</span> <span class="fl">3.5</span></span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="op">&gt;</span> <span class="bu">isinstance</span>(x,<span class="bu">float</span>) <span class="co"># check if x is of type float. </span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="va">True</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a><span class="op">&gt;</span> x <span class="op">=</span> <span class="fl">3.5</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a><span class="op">&gt;</span> <span class="bu">isinstance</span>(x,<span class="bu">float</span>) <span class="co"># check if x is of type float. </span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1" aria-label="code-block-8-3"></a><span class="va">True</span></span></code></pre>
 </div>
 <p>The <code>isistance</code> function can be used together with
 <code>assert</code> to check a variable is of the right type. For
@@ -1334,10 +1327,10 @@ example:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="op">&gt;</span> x <span class="op">=</span> <span class="st">"3.5"</span> </span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="op">&gt;</span> <span class="cf">assert</span> <span class="bu">isinstance</span>(x,<span class="bu">float</span>), <span class="st">"x must be of type float"</span></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>[...]</span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="pp">AssertionError</span>: x must be of <span class="bu">type</span> <span class="bu">float</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" tabindex="-1" aria-label="code-block-9-1"></a><span class="op">&gt;</span> x <span class="op">=</span> <span class="st">"3.5"</span> </span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1" aria-label="code-block-9-2"></a><span class="op">&gt;</span> <span class="cf">assert</span> <span class="bu">isinstance</span>(x,<span class="bu">float</span>), <span class="st">"x must be of type float"</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1" aria-label="code-block-9-3"></a>[...]</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1" aria-label="code-block-9-4"></a><span class="pp">AssertionError</span>: x must be of <span class="bu">type</span> <span class="bu">float</span></span></code></pre>
 </div>
 <div id="challenge2" class="callout challenge">
 <div class="callout-square">
@@ -1352,21 +1345,21 @@ and <code>height</code> are of type <code>float</code>.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="kw">def</span> calculate_rectangle_area(width, height):</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>  <span class="co">""" Calculate the area of a rectangle, knowing its height and width</span></span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a><span class="co">  Args:</span></span>
-<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a><span class="co">      width (float): The width of a rectangle</span></span>
-<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a><span class="co">      height (float): The height of a rectangle</span></span>
-<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a><span class="co">  Returns:</span></span>
-<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="co">      float: area of the rectangle</span></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="co">  """</span></span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>  area <span class="op">=</span> width <span class="op">*</span> height</span>
-<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>  <span class="cf">return</span> area</span>
-<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a></span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"width = 5.2 and height = 4.3 (both numerical): area = "</span>,calculate_rectangle_area(<span class="fl">5.2</span>, <span class="fl">4.3</span>))</span>
-<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"width = 5 and height = '4' (both numerical): area = "</span>,calculate_rectangle_area(<span class="dv">5</span>, <span class="dv">4</span>))</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1" aria-label="code-block-10-1"></a><span class="kw">def</span> calculate_rectangle_area(width, height):</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1" aria-label="code-block-10-2"></a>  <span class="co">""" Calculate the area of a rectangle, knowing its height and width</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1" aria-label="code-block-10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1" aria-label="code-block-10-4"></a><span class="co">  Args:</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1" aria-label="code-block-10-5"></a><span class="co">      width (float): The width of a rectangle</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1" aria-label="code-block-10-6"></a><span class="co">      height (float): The height of a rectangle</span></span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1" aria-label="code-block-10-7"></a></span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1" aria-label="code-block-10-8"></a><span class="co">  Returns:</span></span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1" aria-label="code-block-10-9"></a><span class="co">      float: area of the rectangle</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1" aria-label="code-block-10-10"></a><span class="co">  """</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1" aria-label="code-block-10-11"></a>  area <span class="op">=</span> width <span class="op">*</span> height</span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1" aria-label="code-block-10-12"></a>  <span class="cf">return</span> area</span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1" aria-label="code-block-10-13"></a></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1" aria-label="code-block-10-14"></a><span class="bu">print</span>(<span class="st">"width = 5.2 and height = 4.3 (both numerical): area = "</span>,calculate_rectangle_area(<span class="fl">5.2</span>, <span class="fl">4.3</span>))</span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1" aria-label="code-block-10-15"></a><span class="bu">print</span>(<span class="st">"width = 5 and height = '4' (both numerical): area = "</span>,calculate_rectangle_area(<span class="dv">5</span>, <span class="dv">4</span>))</span></code></pre>
 </div>
 </div>
 </div>
@@ -1381,20 +1374,20 @@ and <code>height</code> are of type <code>float</code>.</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="kw">def</span> calculate_rectangle_area(width, height):</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a></span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="co">""" Calculate the area of a rectangle, knowing its height and width</span></span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">  Args:</span></span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">      width (float): The width of a rectangle</span></span>
-<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">      height (float): The height of a rectangle</span></span>
-<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a></span>
-<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">  Returns:</span></span>
-<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">      float: area of the rectangle</span></span>
-<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">  """</span></span>
-<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a>  <span class="cf">assert</span> <span class="bu">isinstance</span>(width, <span class="bu">float</span>) <span class="kw">and</span> <span class="bu">isinstance</span>(height, <span class="bu">float</span>), <span class="st">"Input must be of type float"</span></span>
-<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a>  area <span class="op">=</span> width <span class="op">*</span> height</span>
-<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a>  <span class="cf">return</span> area</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1" aria-label="code-block-11-1"></a><span class="kw">def</span> calculate_rectangle_area(width, height):</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1" aria-label="code-block-11-2"></a></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1" aria-label="code-block-11-3"></a>  <span class="co">""" Calculate the area of a rectangle, knowing its height and width</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1" aria-label="code-block-11-4"></a></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1" aria-label="code-block-11-5"></a><span class="co">  Args:</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1" aria-label="code-block-11-6"></a><span class="co">      width (float): The width of a rectangle</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1" aria-label="code-block-11-7"></a><span class="co">      height (float): The height of a rectangle</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1" aria-label="code-block-11-8"></a></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1" aria-label="code-block-11-9"></a><span class="co">  Returns:</span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1" aria-label="code-block-11-10"></a><span class="co">      float: area of the rectangle</span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1" aria-label="code-block-11-11"></a><span class="co">  """</span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1" aria-label="code-block-11-12"></a>  <span class="cf">assert</span> <span class="bu">isinstance</span>(width, <span class="bu">float</span>) <span class="kw">and</span> <span class="bu">isinstance</span>(height, <span class="bu">float</span>), <span class="st">"Input must be of type float"</span></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1" aria-label="code-block-11-13"></a>  area <span class="op">=</span> width <span class="op">*</span> height</span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1" aria-label="code-block-11-14"></a>  <span class="cf">return</span> area</span></code></pre>
 </div>
 </div>
 </div>
@@ -1413,14 +1406,14 @@ checks for a specific condition.</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>x <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span> : <span class="co">#make sure that x is always greater than 0</span></span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  </span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>   <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="st">"x must be greater than 0"</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>     <span class="dv">1</span> <span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span> : <span class="co">#make sure that x is always greater than 0</span></span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a><span class="op">---&gt;</span> <span class="dv">3</span>    <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="st">"x must be greater than 0"</span>)</span>
-<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a></span>
-<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a><span class="pp">Exception</span>: x must be greater than <span class="dv">0</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1" aria-label="code-block-12-1"></a>x <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1" aria-label="code-block-12-2"></a><span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span> : <span class="co">#make sure that x is always greater than 0</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1" aria-label="code-block-12-3"></a>  </span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1" aria-label="code-block-12-4"></a>   <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="st">"x must be greater than 0"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1" aria-label="code-block-12-5"></a>     <span class="dv">1</span> <span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span> : <span class="co">#make sure that x is always greater than 0</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1" aria-label="code-block-12-6"></a><span class="op">---&gt;</span> <span class="dv">3</span>    <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="st">"x must be greater than 0"</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1" aria-label="code-block-12-7"></a></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1" aria-label="code-block-12-8"></a><span class="pp">Exception</span>: x must be greater than <span class="dv">0</span></span></code></pre>
 </div>
 <p>The code raises a general <code>Exception</code> when the variable is
 less than zero. <code>Exception</code> is a built-in Python error type
@@ -1488,21 +1481,21 @@ more appropriate error type?</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="kw">def</span> calculate_rectangle_area(width, height):</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  <span class="co">""" Calculate the area of a rectangle, knowing its height and width</span></span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">  Args:</span></span>
-<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">      width (float): The width of a rectangle</span></span>
-<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">      height (float): The height of a rectangle</span></span>
-<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a></span>
-<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">  Returns:</span></span>
-<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">      float: area of the rectangle</span></span>
-<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a><span class="co">  """</span></span>
-<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>  area <span class="op">=</span> width <span class="op">*</span> height</span>
-<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>  <span class="cf">return</span> area</span>
-<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a></span>
-<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a><span class="co">#you can test running the following code</span></span>
-<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>area <span class="op">=</span> calculate_rectangle_area(<span class="op">-</span><span class="fl">5.1</span>, <span class="fl">3.2</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1" aria-label="code-block-13-1"></a><span class="kw">def</span> calculate_rectangle_area(width, height):</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1" aria-label="code-block-13-2"></a>  <span class="co">""" Calculate the area of a rectangle, knowing its height and width</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1" aria-label="code-block-13-3"></a></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1" aria-label="code-block-13-4"></a><span class="co">  Args:</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1" aria-label="code-block-13-5"></a><span class="co">      width (float): The width of a rectangle</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1" aria-label="code-block-13-6"></a><span class="co">      height (float): The height of a rectangle</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1" aria-label="code-block-13-7"></a></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1" aria-label="code-block-13-8"></a><span class="co">  Returns:</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1" aria-label="code-block-13-9"></a><span class="co">      float: area of the rectangle</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1" aria-label="code-block-13-10"></a><span class="co">  """</span></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1" aria-label="code-block-13-11"></a>  area <span class="op">=</span> width <span class="op">*</span> height</span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1" aria-label="code-block-13-12"></a>  <span class="cf">return</span> area</span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1" aria-label="code-block-13-13"></a></span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1" aria-label="code-block-13-14"></a><span class="co">#you can test running the following code</span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1" aria-label="code-block-13-15"></a>area <span class="op">=</span> calculate_rectangle_area(<span class="op">-</span><span class="fl">5.1</span>, <span class="fl">3.2</span>)</span></code></pre>
 </div>
 </div>
 </div>
@@ -1518,20 +1511,20 @@ more appropriate error type?</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="kw">def</span> calculate_rectangle_area(width, height):</span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  <span class="co">""" Calculate the area of a rectangle, knowing its height and width</span></span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="co">  Args:</span></span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="co">      width (float): The width of a rectangle</span></span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="co">      height (float): The height of a rectangle</span></span>
-<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="co">  Returns:</span></span>
-<span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a><span class="co">      float: area of the rectangle</span></span>
-<span id="cb14-10"><a href="#cb14-10" tabindex="-1"></a><span class="co">  """</span></span>
-<span id="cb14-11"><a href="#cb14-11" tabindex="-1"></a>  <span class="cf">if</span> width <span class="op">&lt;</span> <span class="dv">0</span> <span class="kw">or</span> height <span class="op">&lt;</span> <span class="dv">0</span>:</span>
-<span id="cb14-12"><a href="#cb14-12" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"width and height must be positive values"</span>)</span>
-<span id="cb14-13"><a href="#cb14-13" tabindex="-1"></a>  area <span class="op">=</span> width <span class="op">*</span> height</span>
-<span id="cb14-14"><a href="#cb14-14" tabindex="-1"></a>  <span class="cf">return</span> area</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1" aria-label="code-block-14-1"></a><span class="kw">def</span> calculate_rectangle_area(width, height):</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1" aria-label="code-block-14-2"></a>  <span class="co">""" Calculate the area of a rectangle, knowing its height and width</span></span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1" aria-label="code-block-14-3"></a></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1" aria-label="code-block-14-4"></a><span class="co">  Args:</span></span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1" aria-label="code-block-14-5"></a><span class="co">      width (float): The width of a rectangle</span></span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1" aria-label="code-block-14-6"></a><span class="co">      height (float): The height of a rectangle</span></span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1" aria-label="code-block-14-7"></a></span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1" aria-label="code-block-14-8"></a><span class="co">  Returns:</span></span>
+<span id="cb14-9"><a href="#cb14-9" tabindex="-1" aria-label="code-block-14-9"></a><span class="co">      float: area of the rectangle</span></span>
+<span id="cb14-10"><a href="#cb14-10" tabindex="-1" aria-label="code-block-14-10"></a><span class="co">  """</span></span>
+<span id="cb14-11"><a href="#cb14-11" tabindex="-1" aria-label="code-block-14-11"></a>  <span class="cf">if</span> width <span class="op">&lt;</span> <span class="dv">0</span> <span class="kw">or</span> height <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb14-12"><a href="#cb14-12" tabindex="-1" aria-label="code-block-14-12"></a>    <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"width and height must be positive values"</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" tabindex="-1" aria-label="code-block-14-13"></a>  area <span class="op">=</span> width <span class="op">*</span> height</span>
+<span id="cb14-14"><a href="#cb14-14" tabindex="-1" aria-label="code-block-14-14"></a>  <span class="cf">return</span> area</span></code></pre>
 </div>
 </div>
 </div>
@@ -1574,7 +1567,7 @@ any links that you are not going to use.
 </div>
 </section></section><section id="aio-Episode4"><p>Content from <a href="Episode4.html">Write Reliable Code</a></p>
 <hr>
-<p>Last updated on 2026-04-14 |
+<p>Last updated on 2026-04-21 |
 
         <a href="https://github.com/carpentries-incubator/write-readable-code/edit/main/episodes/Episode4.Rmd" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 <p>Estimated time: <i aria-hidden="true" data-feather="clock"></i> 55 minutes</p>
@@ -1695,7 +1688,7 @@ can do this simply by importing the Pytest library:</p>
 <div class="codewrapper sourceCode" id="cb1">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="im">import</span> pytest</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1" aria-label="code-block-1-1"></a><span class="im">import</span> pytest</span></code></pre>
 </div>
 <p>If the command returns a
 <strong><code>ModuleNotFoundError</code></strong> message, then you can
@@ -1703,7 +1696,7 @@ run:</p>
 <div class="codewrapper sourceCode" id="cb2">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>pip install pytest</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1" aria-label="code-block-2-1"></a>pip install pytest</span></code></pre>
 </div>
 </section><section><h2 class="section-heading" id="challenge-a-rolling-dice-game">Challenge: a rolling dice game<a class="anchor" aria-label="anchor" href="#challenge-a-rolling-dice-game"></a>
 </h2>
@@ -1804,13 +1797,13 @@ following function:</p>
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="kw">def</span> roll_die(sides<span class="op">=</span><span class="dv">6</span>):</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co">"""Roll a die with the specified number of sides.</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">    Args:</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">        sides (int, optional): Number of sides. Defaults to 6.</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">"""</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="cf">pass</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1" aria-label="code-block-3-1"></a><span class="kw">def</span> roll_die(sides<span class="op">=</span><span class="dv">6</span>):</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1" aria-label="code-block-3-2"></a><span class="co">"""Roll a die with the specified number of sides.</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1" aria-label="code-block-3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1" aria-label="code-block-3-4"></a><span class="co">    Args:</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1" aria-label="code-block-3-5"></a><span class="co">        sides (int, optional): Number of sides. Defaults to 6.</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1" aria-label="code-block-3-6"></a><span class="co">"""</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1" aria-label="code-block-3-7"></a><span class="cf">pass</span></span></code></pre>
 </div>
 <p>The <code>pass</code> statement defines a null operation; it is a
 placeholder for future code.</p>
@@ -1822,8 +1815,8 @@ modules:</p>
 <div class="codewrapper sourceCode" id="cb4">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="im">import</span> pytest</span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="im">from</span> dice_game <span class="im">import</span> roll_die</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" tabindex="-1" aria-label="code-block-4-1"></a><span class="im">import</span> pytest</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1" aria-label="code-block-4-2"></a><span class="im">from</span> dice_game <span class="im">import</span> roll_die</span></code></pre>
 </div>
 <p>The first import statement tells Python to use the Pytest framework,
 while the second explicitly says what function (or unit) to use for
@@ -1835,9 +1828,9 @@ This requirement helps to write the first test. Keep working on the file
 <div class="codewrapper sourceCode" id="cb5">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="kw">def</span> test_roll_die():</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  score<span class="op">=</span>roll_die(sides<span class="op">=</span><span class="dv">6</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="cf">assert</span> <span class="dv">1</span><span class="op">&lt;=</span>score<span class="op">&lt;=</span><span class="dv">6</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" tabindex="-1" aria-label="code-block-5-1"></a><span class="kw">def</span> test_roll_die():</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1" aria-label="code-block-5-2"></a>  score<span class="op">=</span>roll_die(sides<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1" aria-label="code-block-5-3"></a>  <span class="cf">assert</span> <span class="dv">1</span><span class="op">&lt;=</span>score<span class="op">&lt;=</span><span class="dv">6</span></span></code></pre>
 </div>
 <p>Save the file, and in a command-line terminal, run:</p>
 <pre><code>:&gt;pytest</code></pre>
@@ -1889,16 +1882,16 @@ the function <code>roll_dice</code> to return the score.</p>
 <div class="codewrapper sourceCode" id="cb8">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="kw">def</span> roll_die(sides<span class="op">=</span><span class="dv">6</span>):</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>  <span class="co">"""Roll a die with the specified number of sides.</span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co">    Args:</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="co">        sides (int, optional): Number of sides. Defaults to 6.</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="co">          int: Rolling score</span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="co">  """</span></span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>  score <span class="op">=</span> np.random.randint(<span class="dv">1</span>, sides<span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>  <span class="cf">return</span> score</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" tabindex="-1" aria-label="code-block-8-1"></a><span class="kw">def</span> roll_die(sides<span class="op">=</span><span class="dv">6</span>):</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1" aria-label="code-block-8-2"></a>  <span class="co">"""Roll a die with the specified number of sides.</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1" aria-label="code-block-8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1" aria-label="code-block-8-4"></a><span class="co">    Args:</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1" aria-label="code-block-8-5"></a><span class="co">        sides (int, optional): Number of sides. Defaults to 6.</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1" aria-label="code-block-8-6"></a><span class="co">    Returns:</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1" aria-label="code-block-8-7"></a><span class="co">          int: Rolling score</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1" aria-label="code-block-8-8"></a><span class="co">  """</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1" aria-label="code-block-8-9"></a>  score <span class="op">=</span> np.random.randint(<span class="dv">1</span>, sides<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1" aria-label="code-block-8-10"></a>  <span class="cf">return</span> score</span></code></pre>
 </div>
 <p>And run <code>pytest</code> again.</p>
 </div>
@@ -1959,9 +1952,9 @@ smoothly.</p>
 <div class="codewrapper sourceCode" id="cb10">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="kw">def</span> test_custom_die():</span>
-<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>    result <span class="op">=</span> roll_die(sides<span class="op">=</span><span class="dv">20</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>    <span class="cf">assert</span> <span class="dv">1</span><span class="op">&lt;=</span>result<span class="op">&lt;=</span> <span class="dv">20</span>   </span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" tabindex="-1" aria-label="code-block-10-1"></a><span class="kw">def</span> test_custom_die():</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1" aria-label="code-block-10-2"></a>    result <span class="op">=</span> roll_die(sides<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1" aria-label="code-block-10-3"></a>    <span class="cf">assert</span> <span class="dv">1</span><span class="op">&lt;=</span>result<span class="op">&lt;=</span> <span class="dv">20</span>   </span></code></pre>
 </div>
 </div>
 </div>
@@ -2003,10 +1996,10 @@ function to</p>
 <div class="codewrapper sourceCode" id="cb11">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="at">@pytest.mark.parametrize</span>(<span class="st">"sides"</span>, [<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>])</span>
-<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="kw">def</span> test_roll_die(sides):</span>
-<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>    result <span class="op">=</span> roll_die(sides<span class="op">=</span>sides)</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>    <span class="cf">assert</span> <span class="dv">1</span><span class="op">&lt;=</span>result<span class="op">&lt;=</span> sides  </span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" tabindex="-1" aria-label="code-block-11-1"></a><span class="at">@pytest.mark.parametrize</span>(<span class="st">"sides"</span>, [<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>])</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1" aria-label="code-block-11-2"></a><span class="kw">def</span> test_roll_die(sides):</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1" aria-label="code-block-11-3"></a>    result <span class="op">=</span> roll_die(sides<span class="op">=</span>sides)</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1" aria-label="code-block-11-4"></a>    <span class="cf">assert</span> <span class="dv">1</span><span class="op">&lt;=</span>result<span class="op">&lt;=</span> sides  </span></code></pre>
 </div>
 </section><section><h2 class="section-heading" id="using-pytest-to-test-exception">Using Pytest to test exception<a class="anchor" aria-label="anchor" href="#using-pytest-to-test-exception"></a>
 </h2>
@@ -2023,12 +2016,12 @@ create a function to divide two numbers like the one below</p>
 <div class="codewrapper sourceCode" id="cb12">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="kw">def</span> divide_number(numerator,denominator):</span>
-<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>  <span class="cf">if</span> denominator <span class="op">==</span> <span class="dv">0</span> :</span>
-<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>    <span class="cf">raise</span> <span class="pp">ZeroDivisionError</span>(<span class="st">"Cannot divide by zero"</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>  </span>
-<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>  <span class="cf">return</span> numerator<span class="op">/</span>denominator</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" tabindex="-1" aria-label="code-block-12-1"></a><span class="kw">def</span> divide_number(numerator,denominator):</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1" aria-label="code-block-12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1" aria-label="code-block-12-3"></a>  <span class="cf">if</span> denominator <span class="op">==</span> <span class="dv">0</span> :</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1" aria-label="code-block-12-4"></a>    <span class="cf">raise</span> <span class="pp">ZeroDivisionError</span>(<span class="st">"Cannot divide by zero"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1" aria-label="code-block-12-5"></a>  </span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1" aria-label="code-block-12-6"></a>  <span class="cf">return</span> numerator<span class="op">/</span>denominator</span></code></pre>
 </div>
 <p>We can use <code>pytest.raises</code> to check the expected behaviour
 when the denominator is zero. If the correct exception is raised, the
@@ -2037,9 +2030,9 @@ the test fails.</p>
 <div class="codewrapper sourceCode" id="cb13">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="kw">def</span> test_divide():</span>
-<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  <span class="cf">with</span> Pytest.raises(<span class="pp">ZeroDivisionError</span>):</span>
-<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>    divide_number(<span class="dv">2</span>,<span class="dv">0</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" tabindex="-1" aria-label="code-block-13-1"></a><span class="kw">def</span> test_divide():</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1" aria-label="code-block-13-2"></a>  <span class="cf">with</span> Pytest.raises(<span class="pp">ZeroDivisionError</span>):</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1" aria-label="code-block-13-3"></a>    divide_number(<span class="dv">2</span>,<span class="dv">0</span>)</span></code></pre>
 </div>
 <div id="step3-incorporate-input-validation" class="callout challenge">
 <div class="callout-square">
@@ -2058,9 +2051,9 @@ handling when the number of sides is incorrect.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="kw">def</span> test_incorrect_die():</span>
-<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>  <span class="cf">with</span> Pytest.raises(<span class="pp">ValueError</span>):</span>
-<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>    roll_die(<span class="dv">1</span>)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" tabindex="-1" aria-label="code-block-14-1"></a><span class="kw">def</span> test_incorrect_die():</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1" aria-label="code-block-14-2"></a>  <span class="cf">with</span> Pytest.raises(<span class="pp">ValueError</span>):</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1" aria-label="code-block-14-3"></a>    roll_die(<span class="dv">1</span>)</span></code></pre>
 </div>
 <p>The test will fail because we have not yet changed the
 <code>roll_die</code> function. Can you modify the function to pass the
@@ -2078,23 +2071,23 @@ test?</p>
 <div class="codewrapper sourceCode" id="cb15">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="kw">def</span> roll_die(sides<span class="op">=</span><span class="dv">6</span>):</span>
-<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>    <span class="co">"""Roll a die with the specified number of sides.</span></span>
-<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a><span class="co">    Args:</span></span>
-<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="co">        slide (int, optional): Number of sides. Defaults to 6.</span></span>
-<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a><span class="co">        int: Rolling score</span></span>
-<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a><span class="co">    </span></span>
-<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a><span class="co">    Raise:</span></span>
-<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a><span class="co">      ValueError: When the number of sides is less than 2.</span></span>
-<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a>    </span>
-<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a>    <span class="cf">if</span> sides <span class="op">&lt;=</span><span class="dv">2</span>:</span>
-<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">'Number of sides must be greater than 2'</span>)</span>
-<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a>    score <span class="op">=</span> np.random.randint(<span class="dv">1</span>, sides<span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a>    <span class="cf">return</span> score</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" tabindex="-1" aria-label="code-block-15-1"></a><span class="kw">def</span> roll_die(sides<span class="op">=</span><span class="dv">6</span>):</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1" aria-label="code-block-15-2"></a>    <span class="co">"""Roll a die with the specified number of sides.</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1" aria-label="code-block-15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1" aria-label="code-block-15-4"></a><span class="co">    Args:</span></span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1" aria-label="code-block-15-5"></a><span class="co">        slide (int, optional): Number of sides. Defaults to 6.</span></span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1" aria-label="code-block-15-6"></a></span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1" aria-label="code-block-15-7"></a><span class="co">    Returns:</span></span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1" aria-label="code-block-15-8"></a><span class="co">        int: Rolling score</span></span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1" aria-label="code-block-15-9"></a><span class="co">    </span></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1" aria-label="code-block-15-10"></a><span class="co">    Raise:</span></span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1" aria-label="code-block-15-11"></a><span class="co">      ValueError: When the number of sides is less than 2.</span></span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1" aria-label="code-block-15-12"></a><span class="co">    """</span></span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1" aria-label="code-block-15-13"></a>    </span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1" aria-label="code-block-15-14"></a>    <span class="cf">if</span> sides <span class="op">&lt;=</span><span class="dv">2</span>:</span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1" aria-label="code-block-15-15"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">'Number of sides must be greater than 2'</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1" aria-label="code-block-15-16"></a>    score <span class="op">=</span> np.random.randint(<span class="dv">1</span>, sides<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1" aria-label="code-block-15-17"></a>    <span class="cf">return</span> score</span></code></pre>
 </div>
 </div>
 </div>
@@ -2139,8 +2132,8 @@ approximations. For example, have a look at the output below</p>
 <div class="codewrapper sourceCode" id="cb16">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="op">&gt;</span> <span class="fl">0.2</span><span class="op">+</span><span class="fl">0.4</span> <span class="op">==</span> <span class="fl">0.6</span></span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="va">False</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" tabindex="-1" aria-label="code-block-16-1"></a><span class="op">&gt;</span> <span class="fl">0.2</span><span class="op">+</span><span class="fl">0.4</span> <span class="op">==</span> <span class="fl">0.6</span></span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1" aria-label="code-block-16-2"></a><span class="va">False</span></span></code></pre>
 </div>
 <p>This is a common problem in testing and usually requires asserting
 that two floating-point numbers are equal within some tolerance,
@@ -2148,7 +2141,7 @@ something like</p>
 <div class="codewrapper sourceCode" id="cb17">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="bu">abs</span>((<span class="fl">0.2</span> <span class="op">+</span> <span class="fl">0.4</span>) <span class="op">-</span> <span class="fl">0.6</span>) <span class="op">&lt;</span> <span class="fl">1e-6</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" tabindex="-1" aria-label="code-block-17-1"></a><span class="bu">abs</span>((<span class="fl">0.2</span> <span class="op">+</span> <span class="fl">0.4</span>) <span class="op">-</span> <span class="fl">0.6</span>) <span class="op">&lt;</span> <span class="fl">1e-6</span></span></code></pre>
 </div>
 <p>where the tolerance is <span class="math inline">\(1\times10^{-6}\)</span>. Writing this type of
 tests is tedious and usually requires code repetition. However, Pytest
@@ -2160,17 +2153,17 @@ instead. Then</p>
 <div class="codewrapper sourceCode" id="cb18">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>result <span class="op">=</span> <span class="fl">0.6199</span></span>
-<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="cf">assert</span> result <span class="op">==</span> pytest.approx(<span class="fl">0.62</span>), <span class="st">"Results don't match"</span></span>
-<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>[...]</span>
-<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="pp">AssertionError</span>: Results don<span class="st">'t match</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" tabindex="-1" aria-label="code-block-18-1"></a>result <span class="op">=</span> <span class="fl">0.6199</span></span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1" aria-label="code-block-18-2"></a><span class="cf">assert</span> result <span class="op">==</span> pytest.approx(<span class="fl">0.62</span>), <span class="st">"Results don't match"</span></span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1" aria-label="code-block-18-3"></a>[...]</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1" aria-label="code-block-18-4"></a><span class="pp">AssertionError</span>: Results don<span class="st">'t match</span></span></code></pre>
 </div>
 <p>A better check therefore might be</p>
 <div class="codewrapper sourceCode" id="cb19">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>result <span class="op">=</span> <span class="fl">0.6199</span></span>
-<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="cf">assert</span> result <span class="op">==</span> pytest.approx(<span class="fl">0.62</span>,<span class="fl">1e-3</span>), <span class="st">"Results don't match"</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" tabindex="-1" aria-label="code-block-19-1"></a>result <span class="op">=</span> <span class="fl">0.6199</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1" aria-label="code-block-19-2"></a><span class="cf">assert</span> result <span class="op">==</span> pytest.approx(<span class="fl">0.62</span>,<span class="fl">1e-3</span>), <span class="st">"Results don't match"</span></span></code></pre>
 </div>
 <p>where we changed the tolerance to <span class="math inline">\(1\times10^{-3}\)</span>. An alternative solution
 might be to use the <code>round()</code> function to approximate the
@@ -2178,8 +2171,8 @@ solution to a given number of decimals.</p>
 <div class="codewrapper sourceCode" id="cb20">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>result <span class="op">=</span> <span class="fl">0.6199</span></span>
-<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">round</span>(result,<span class="dv">3</span>) <span class="op">==</span> pytest.approx(<span class="fl">0.62</span>), <span class="st">"Results don't match"</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" tabindex="-1" aria-label="code-block-20-1"></a>result <span class="op">=</span> <span class="fl">0.6199</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1" aria-label="code-block-20-2"></a><span class="cf">assert</span> <span class="bu">round</span>(result,<span class="dv">3</span>) <span class="op">==</span> pytest.approx(<span class="fl">0.62</span>), <span class="st">"Results don't match"</span></span></code></pre>
 </div>
 <div id="write-test_average_roll" class="callout discussion">
 <div class="callout-square">
@@ -2194,15 +2187,15 @@ solution to a given number of decimals.</p>
 <div class="codewrapper sourceCode" id="cb21">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="kw">def</span> calculate_average_rolls(sides, number_of_rolls):</span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>    <span class="co">"""Calculate average roll over multiple trials.</span></span>
-<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="co">    Args:</span></span>
-<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="co">        sides (int): Number of die sides.</span></span>
-<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="co">        number_of_rolls (int): number of rolls</span></span>
-<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="co">    </span></span>
-<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a>    <span class="cf">pass</span></span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" tabindex="-1" aria-label="code-block-21-1"></a><span class="kw">def</span> calculate_average_rolls(sides, number_of_rolls):</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1" aria-label="code-block-21-2"></a>    <span class="co">"""Calculate average roll over multiple trials.</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1" aria-label="code-block-21-3"></a></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1" aria-label="code-block-21-4"></a><span class="co">    Args:</span></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1" aria-label="code-block-21-5"></a><span class="co">        sides (int): Number of die sides.</span></span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1" aria-label="code-block-21-6"></a><span class="co">        number_of_rolls (int): number of rolls</span></span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1" aria-label="code-block-21-7"></a><span class="co">    </span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1" aria-label="code-block-21-8"></a><span class="co">    """</span></span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1" aria-label="code-block-21-9"></a>    <span class="cf">pass</span></span></code></pre>
 </div>
 <p>Then, add the corresponding test function in
 <code>test_dice_game.py</code>.</p>
@@ -2212,13 +2205,13 @@ solution to a given number of decimals.</p>
 <div class="codewrapper sourceCode" id="cb22">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a><span class="kw">def</span> test_average_roll():</span>
-<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>    <span class="co">"""Test the die is unbiased. </span></span>
-<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a><span class="co">    Assert that the average score over a number of rolls is equal to the expected average</span></span>
-<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>    average <span class="op">=</span> calculate_average_rolls(sides<span class="op">=</span><span class="dv">6</span>, num_of_rolls<span class="op">=</span><span class="dv">1000</span>)</span>
-<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a>    EXPECTED_AVERAGE <span class="op">=</span> <span class="fl">3.5</span> <span class="co">#expected average for a 6-sided die.</span></span>
-<span id="cb22-7"><a href="#cb22-7" tabindex="-1"></a>    <span class="cf">assert</span>  <span class="bu">round</span>(average,<span class="dv">1</span>) <span class="op">==</span> pytest.approx(EXPECTED_AVERAGE)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" tabindex="-1" aria-label="code-block-22-1"></a><span class="kw">def</span> test_average_roll():</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1" aria-label="code-block-22-2"></a>    <span class="co">"""Test the die is unbiased. </span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1" aria-label="code-block-22-3"></a><span class="co">    Assert that the average score over a number of rolls is equal to the expected average</span></span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1" aria-label="code-block-22-4"></a><span class="co">    """</span></span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1" aria-label="code-block-22-5"></a>    average <span class="op">=</span> calculate_average_rolls(sides<span class="op">=</span><span class="dv">6</span>, num_of_rolls<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1" aria-label="code-block-22-6"></a>    EXPECTED_AVERAGE <span class="op">=</span> <span class="fl">3.5</span> <span class="co">#expected average for a 6-sided die.</span></span>
+<span id="cb22-7"><a href="#cb22-7" tabindex="-1" aria-label="code-block-22-7"></a>    <span class="cf">assert</span>  <span class="bu">round</span>(average,<span class="dv">1</span>) <span class="op">==</span> pytest.approx(EXPECTED_AVERAGE)</span></code></pre>
 </div>
 <p>Now, modify the code
 <code>calculate_average_rolls(sides, number_of_rolls)</code>. An example
@@ -2226,27 +2219,27 @@ can be:</p>
 <div class="codewrapper sourceCode" id="cb23">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="kw">def</span> calculate_average_rolls(sides, number_of_rolls):</span>
-<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>    <span class="co">"""Calculate average roll over multiple trials.</span></span>
-<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a><span class="co">    Args:</span></span>
-<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a><span class="co">        sides (int): Number of die sides.</span></span>
-<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="co">        number_of_rolls (int): number of rolls</span></span>
-<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a><span class="co">    </span></span>
-<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a><span class="co">    Raises:</span></span>
-<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a><span class="co">        ValueError: When the number of rolls is less than or equal to 1. </span></span>
-<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a></span>
-<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a><span class="co">        float: Average total score</span></span>
-<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a></span>
-<span id="cb23-14"><a href="#cb23-14" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb23-15"><a href="#cb23-15" tabindex="-1"></a></span>
-<span id="cb23-16"><a href="#cb23-16" tabindex="-1"></a>    <span class="cf">if</span> number_of_rolls <span class="op">&lt;=</span><span class="dv">1</span>:</span>
-<span id="cb23-17"><a href="#cb23-17" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"""Number of rolls should be greater than 1.</span></span>
-<span id="cb23-18"><a href="#cb23-18" tabindex="-1"></a><span class="st">                        For better results, it should be at least 1e3"""</span>)</span>
-<span id="cb23-19"><a href="#cb23-19" tabindex="-1"></a>    total_score <span class="op">=</span>[roll_die(sides) <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(number_of_rolls)]</span>
-<span id="cb23-20"><a href="#cb23-20" tabindex="-1"></a>    average <span class="op">=</span> np.mean(total_score)</span>
-<span id="cb23-21"><a href="#cb23-21" tabindex="-1"></a>    <span class="cf">return</span> average</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" tabindex="-1" aria-label="code-block-23-1"></a><span class="kw">def</span> calculate_average_rolls(sides, number_of_rolls):</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1" aria-label="code-block-23-2"></a>    <span class="co">"""Calculate average roll over multiple trials.</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1" aria-label="code-block-23-3"></a></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1" aria-label="code-block-23-4"></a><span class="co">    Args:</span></span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1" aria-label="code-block-23-5"></a><span class="co">        sides (int): Number of die sides.</span></span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1" aria-label="code-block-23-6"></a><span class="co">        number_of_rolls (int): number of rolls</span></span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1" aria-label="code-block-23-7"></a><span class="co">    </span></span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1" aria-label="code-block-23-8"></a><span class="co">    Raises:</span></span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1" aria-label="code-block-23-9"></a><span class="co">        ValueError: When the number of rolls is less than or equal to 1. </span></span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1" aria-label="code-block-23-10"></a></span>
+<span id="cb23-11"><a href="#cb23-11" tabindex="-1" aria-label="code-block-23-11"></a><span class="co">    Returns:</span></span>
+<span id="cb23-12"><a href="#cb23-12" tabindex="-1" aria-label="code-block-23-12"></a><span class="co">        float: Average total score</span></span>
+<span id="cb23-13"><a href="#cb23-13" tabindex="-1" aria-label="code-block-23-13"></a></span>
+<span id="cb23-14"><a href="#cb23-14" tabindex="-1" aria-label="code-block-23-14"></a><span class="co">    """</span></span>
+<span id="cb23-15"><a href="#cb23-15" tabindex="-1" aria-label="code-block-23-15"></a></span>
+<span id="cb23-16"><a href="#cb23-16" tabindex="-1" aria-label="code-block-23-16"></a>    <span class="cf">if</span> number_of_rolls <span class="op">&lt;=</span><span class="dv">1</span>:</span>
+<span id="cb23-17"><a href="#cb23-17" tabindex="-1" aria-label="code-block-23-17"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"""Number of rolls should be greater than 1.</span></span>
+<span id="cb23-18"><a href="#cb23-18" tabindex="-1" aria-label="code-block-23-18"></a><span class="st">                        For better results, it should be at least 1e3"""</span>)</span>
+<span id="cb23-19"><a href="#cb23-19" tabindex="-1" aria-label="code-block-23-19"></a>    total_score <span class="op">=</span>[roll_die(sides) <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(number_of_rolls)]</span>
+<span id="cb23-20"><a href="#cb23-20" tabindex="-1" aria-label="code-block-23-20"></a>    average <span class="op">=</span> np.mean(total_score)</span>
+<span id="cb23-21"><a href="#cb23-21" tabindex="-1" aria-label="code-block-23-21"></a>    <span class="cf">return</span> average</span></code></pre>
 </div>
 </div>
 </div>
@@ -2265,16 +2258,16 @@ it with <code>pytest.mark.parametrize</code>:</p>
 <div class="codewrapper sourceCode" id="cb24">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="at">@Pytest.mark.parametrize</span>(<span class="st">"sides, num_rolls"</span>, [</span>
-<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>    (<span class="dv">6</span>, <span class="dv">10000</span>),(<span class="dv">10</span>, <span class="dv">10000</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>])</span>
-<span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a><span class="kw">def</span> test_average_roll(sides, num_rolls):</span>
-<span id="cb24-5"><a href="#cb24-5" tabindex="-1"></a>    <span class="co">"""Test the die is unbiased. </span></span>
-<span id="cb24-6"><a href="#cb24-6" tabindex="-1"></a><span class="co">    Assert that the average score over a number of rolls is equal to the expected average for different dice.</span></span>
-<span id="cb24-7"><a href="#cb24-7" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb24-8"><a href="#cb24-8" tabindex="-1"></a>    average <span class="op">=</span> calculate_average_rolls(sides, num_rolls)</span>
-<span id="cb24-9"><a href="#cb24-9" tabindex="-1"></a>    EXPECTED_AVERAGE <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">range</span>(<span class="dv">1</span>,sides<span class="op">+</span><span class="dv">1</span>)) <span class="op">/</span> sides</span>
-<span id="cb24-10"><a href="#cb24-10" tabindex="-1"></a>    <span class="cf">assert</span>  <span class="bu">round</span>(average,<span class="dv">1</span>) <span class="op">==</span> pytest.approx(EXPECTED_AVERAGE)</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" tabindex="-1" aria-label="code-block-24-1"></a><span class="at">@Pytest.mark.parametrize</span>(<span class="st">"sides, num_rolls"</span>, [</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1" aria-label="code-block-24-2"></a>    (<span class="dv">6</span>, <span class="dv">10000</span>),(<span class="dv">10</span>, <span class="dv">10000</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1" aria-label="code-block-24-3"></a>])</span>
+<span id="cb24-4"><a href="#cb24-4" tabindex="-1" aria-label="code-block-24-4"></a><span class="kw">def</span> test_average_roll(sides, num_rolls):</span>
+<span id="cb24-5"><a href="#cb24-5" tabindex="-1" aria-label="code-block-24-5"></a>    <span class="co">"""Test the die is unbiased. </span></span>
+<span id="cb24-6"><a href="#cb24-6" tabindex="-1" aria-label="code-block-24-6"></a><span class="co">    Assert that the average score over a number of rolls is equal to the expected average for different dice.</span></span>
+<span id="cb24-7"><a href="#cb24-7" tabindex="-1" aria-label="code-block-24-7"></a><span class="co">    """</span></span>
+<span id="cb24-8"><a href="#cb24-8" tabindex="-1" aria-label="code-block-24-8"></a>    average <span class="op">=</span> calculate_average_rolls(sides, num_rolls)</span>
+<span id="cb24-9"><a href="#cb24-9" tabindex="-1" aria-label="code-block-24-9"></a>    EXPECTED_AVERAGE <span class="op">=</span> <span class="bu">sum</span>(<span class="bu">range</span>(<span class="dv">1</span>,sides<span class="op">+</span><span class="dv">1</span>)) <span class="op">/</span> sides</span>
+<span id="cb24-10"><a href="#cb24-10" tabindex="-1" aria-label="code-block-24-10"></a>    <span class="cf">assert</span>  <span class="bu">round</span>(average,<span class="dv">1</span>) <span class="op">==</span> pytest.approx(EXPECTED_AVERAGE)</span></code></pre>
 </div>
 <ul>
 <li>The use of <code>round</code> is to fix approximation errors,
@@ -2334,33 +2327,33 @@ exceeds the target score.</li>
 <div class="codewrapper sourceCode" id="cb25">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="kw">def</span> test_game_completition():</span>
-<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>    <span class="co">""" Test that the game returns a reasonable number of rolls</span></span>
-<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>    rolls_needed, total <span class="op">=</span> play_game(target_score<span class="op">=</span><span class="dv">6</span>)</span>
-<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>    <span class="cf">assert</span> rolls_needed <span class="op">&gt;</span> <span class="dv">0</span> </span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" tabindex="-1" aria-label="code-block-25-1"></a><span class="kw">def</span> test_game_completition():</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1" aria-label="code-block-25-2"></a>    <span class="co">""" Test that the game returns a reasonable number of rolls</span></span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1" aria-label="code-block-25-3"></a><span class="co">    """</span></span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1" aria-label="code-block-25-4"></a>    rolls_needed, total <span class="op">=</span> play_game(target_score<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1" aria-label="code-block-25-5"></a>    <span class="cf">assert</span> rolls_needed <span class="op">&gt;</span> <span class="dv">0</span> </span></code></pre>
 </div>
 <p>In <code>dice_game.py</code></p>
 <div class="codewrapper sourceCode" id="cb26">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
-<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a></span>
-<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="kw">def</span> play_game(target_score <span class="op">=</span> <span class="dv">21</span>):</span>
-<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>    <span class="co">"""Roll the die until total score reaches or overcome the total score</span></span>
-<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a><span class="co">    Args:</span></span>
-<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a><span class="co">        target_score (int, optional): The target score. Defaults to 21.</span></span>
-<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a><span class="co">    Returns:</span></span>
-<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="co">        tuple (int, int): Number of rolls and total score</span></span>
-<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a><span class="co">    """</span></span>
-<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a>    total <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a>    number_of_rolls <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a>    <span class="cf">while</span> total<span class="op">&lt;</span>target_score:</span>
-<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a>        roll <span class="op">=</span> roll_die()</span>
-<span id="cb26-14"><a href="#cb26-14" tabindex="-1"></a>        total <span class="op">=</span> total <span class="op">+</span> roll</span>
-<span id="cb26-15"><a href="#cb26-15" tabindex="-1"></a>        number_of_rolls <span class="op">=</span> number_of_rolls <span class="op">+</span><span class="dv">1</span></span>
-<span id="cb26-16"><a href="#cb26-16" tabindex="-1"></a>        </span>
-<span id="cb26-17"><a href="#cb26-17" tabindex="-1"></a>    <span class="cf">return</span> number_of_rolls, total</span></code></pre>
+<pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" tabindex="-1" aria-label="code-block-26-1"></a></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1" aria-label="code-block-26-2"></a><span class="kw">def</span> play_game(target_score <span class="op">=</span> <span class="dv">21</span>):</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1" aria-label="code-block-26-3"></a>    <span class="co">"""Roll the die until total score reaches or overcome the total score</span></span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1" aria-label="code-block-26-4"></a></span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1" aria-label="code-block-26-5"></a><span class="co">    Args:</span></span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1" aria-label="code-block-26-6"></a><span class="co">        target_score (int, optional): The target score. Defaults to 21.</span></span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1" aria-label="code-block-26-7"></a><span class="co">    Returns:</span></span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1" aria-label="code-block-26-8"></a><span class="co">        tuple (int, int): Number of rolls and total score</span></span>
+<span id="cb26-9"><a href="#cb26-9" tabindex="-1" aria-label="code-block-26-9"></a><span class="co">    """</span></span>
+<span id="cb26-10"><a href="#cb26-10" tabindex="-1" aria-label="code-block-26-10"></a>    total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb26-11"><a href="#cb26-11" tabindex="-1" aria-label="code-block-26-11"></a>    number_of_rolls <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb26-12"><a href="#cb26-12" tabindex="-1" aria-label="code-block-26-12"></a>    <span class="cf">while</span> total<span class="op">&lt;</span>target_score:</span>
+<span id="cb26-13"><a href="#cb26-13" tabindex="-1" aria-label="code-block-26-13"></a>        roll <span class="op">=</span> roll_die()</span>
+<span id="cb26-14"><a href="#cb26-14" tabindex="-1" aria-label="code-block-26-14"></a>        total <span class="op">=</span> total <span class="op">+</span> roll</span>
+<span id="cb26-15"><a href="#cb26-15" tabindex="-1" aria-label="code-block-26-15"></a>        number_of_rolls <span class="op">=</span> number_of_rolls <span class="op">+</span><span class="dv">1</span></span>
+<span id="cb26-16"><a href="#cb26-16" tabindex="-1" aria-label="code-block-26-16"></a>        </span>
+<span id="cb26-17"><a href="#cb26-17" tabindex="-1" aria-label="code-block-26-17"></a>    <span class="cf">return</span> number_of_rolls, total</span></code></pre>
 </div>
 </div>
 </div>
@@ -2423,7 +2416,7 @@ any links that you are not going to use.
         <p>Materials licensed under <a href="LICENSE.html">CC-BY 4.0</a> by the authors</p>
 
         <p>Template licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" class="external-link">CC-BY 4.0</a> by <a href="https://carpentries.org/" class="external-link">The Carpentries</a></p>
-        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.0)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.0.9)</a></p>
+        <p>Built with <a href="https://github.com/carpentries/sandpaper/tree/" class="external-link">sandpaper (0.20.1)</a>, <a href="https://github.com/carpentries/pegboard/tree/" class="external-link">pegboard (0.7.9)</a>, and <a href="https://github.com/carpentries/varnish/tree/" class="external-link">varnish (1.1.0)</a></p>
 		</div>
 		</footer>
 </div> <!-- / div.container -->
@@ -2446,8 +2439,8 @@ any links that you are not going to use.
   "url": "https://carpentries-incubator.github.io/write-readable-code/instructor/aio.html",
   "identifier": "https://carpentries-incubator.github.io/write-readable-code/instructor/aio.html",
   "dateCreated": "2025-01-29",
-  "dateModified": "2026-04-14",
-  "datePublished": "2026-04-14"
+  "dateModified": "2026-04-21",
+  "datePublished": "2026-04-21"
 }
 
   </script><script>
